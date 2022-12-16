@@ -7,6 +7,7 @@ function App() {
   const [cats, setCats] = useState([]);
   const [reload, setReaload] = useState(false);
   const [translate, setTranslate] = useState([])
+  const [loading, setLoading] = useState(false);
 
 
   const getFacts = () => {
@@ -16,9 +17,13 @@ function App() {
   }
 
   const getCats = () => {
+    
+    setLoading(true);
+
     axios.get('https://api.thecatapi.com/v1/images/search')
     .then(response => setCats(response.data))
     .catch(error => console.log(error))
+    .finally(()=> setLoading(false));
   }
 
   const encodedParams = new URLSearchParams();
@@ -37,7 +42,7 @@ function App() {
     data: encodedParams
   };
 
-  // ! axios.request(options).then(function (response) {
+  // axios.request(options).then(function (response) {
   //   setTranslate(response.data.translated_text);
   // }).catch(function (error) {
   //   console.error(error);
@@ -51,21 +56,21 @@ function App() {
   }, [reload])
 
   return (
-    <div className="grid place-items-center h-screen">
+    <div className="grid place-items-center h-screen p-16">
       
-      <div className="w-8/12 flex flex-col gap-8">
+      <div className="w-8/12 flex flex-col gap-8 sm:w-full">
+        <h1 className="font-bold text-5xl title text-gray-400">DATOS DE GATOS</h1>
         {
           cats.map(cat => {
             return(
-              <img className="object-scale-down w-64 border-white border-8 outline outline-black" src={cat.url} alt="" />
+              <img className="shadow object-scale-down w-96 border-gray-300 border-8 outline outline-black" src={cat.url} alt="" />
             )
           })
         }
+        <h1 className="font-normal text-xl text-gray-500">{translate}</h1>
 
-        <h1 className="font-bold text-3xl">{translate}</h1>
-
-        <div className="text-start">
-          <button className="px-2 py-3 bg-black text-white hover:bg-black/90" onClick={() => {setReaload(!reload)}}>Get random fact</button>
+        <div className="text-start pb-16">
+          <button className="px-2 py-3 bg-gray-500 text-gray-900 font-bold hover:bg-gray-400" onClick={() => {setReaload(!reload)}}>{loading ? 'Cargando..' : 'Dato random'}</button>
         </div>
       </div>
       
