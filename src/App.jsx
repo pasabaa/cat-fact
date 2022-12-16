@@ -11,9 +11,11 @@ function App() {
 
 
   const getFacts = () => {
+    setLoading(true);
     axios.get('https://catfact.ninja/fact')
     .then(response => setFacts(response.data.fact))
     .catch(error => console.log(error))
+    .finally(()=> setLoading(false));
   }
 
   const getCats = () => {
@@ -67,7 +69,8 @@ function App() {
             )
           })
         }
-        <h1 className="font-normal text-xl text-gray-500">{translate}</h1>
+        
+        <h1 className="font-normal text-xl text-gray-500">{loading ? 'Cargando...' : translate}</h1>
 
         <div className="text-start pb-16">
           <button className="px-2 py-3 bg-gray-500 text-gray-900 font-bold hover:bg-gray-400" onClick={() => {setReaload(!reload)}}>{loading ? 'Cargando..' : 'Dato random'}</button>
