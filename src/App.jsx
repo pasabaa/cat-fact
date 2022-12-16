@@ -42,11 +42,11 @@ function App() {
     data: encodedParams
   };
 
-  // axios.request(options).then(function (response) {
-  //   setTranslate(response.data.translated_text);
-  // }).catch(function (error) {
-  //   console.error(error);
-  // });
+  axios.request(options).then(function (response) {
+    setTranslate(response.data.translated_text);
+  }).catch(function (error) {
+    console.error(error);
+  });
 
   useEffect(()=> {
 
