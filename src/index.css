@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Raleway:wght@100;400;700;900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
 
 @tailwind base;
 @tailwind components;
@@ -11,4 +12,8 @@ body {
 
 .title {
     font-family: 'Merriweather', serif;
+}
+
+.filter-white {
+    filter: invert(99%) sepia(0%) saturate(303%) hue-rotate(272deg) brightness(119%) contrast(100%);
 }
